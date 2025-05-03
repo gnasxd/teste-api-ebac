@@ -12,10 +12,10 @@ describe('Testes da Funcionalidade Usuários', () => {
   });
 
   it.only('Deve validar contrato de usuários', () => {
-    cy.request('usuarios').then(response => {
-      return contrato.validateAsync(response.body)
+    cy.request('produtos').then(response => {
+      return contrato.validateAsync(response.usuarios)
   })
-  });
+  }); 
 
   it('Deve listar usuários cadastrados', () => {
     cy.request({
@@ -27,7 +27,7 @@ describe('Testes da Funcionalidade Usuários', () => {
     })
   });
 
-  it.only('Deve cadastrar um usuário com sucesso', () => {
+  it('Deve cadastrar um usuário com sucesso', () => {
     let usuario = ' Usuario EBAC ' + Math.floor(Math.random() * 10000000)
       let email = 'ebac' + Math.floor(Math.random() * 10000000) + '@teste.com'
   let senha = 'teste123'
