@@ -11,7 +11,7 @@ describe('Testes da Funcionalidade Usuários', () => {
   
   });
 
-  it.only('Deve validar contrato de usuários', () => {
+  it('Deve validar contrato de usuários', () => {
     cy.request('produtos').then(response => {
       return contrato.validateAsync(response.usuarios)
   })
@@ -60,35 +60,44 @@ describe('Testes da Funcionalidade Usuários', () => {
   });
 
   it('Deve editar um usuário previamente cadastrado', () => {
-   cy.request('usuarios').then(response => {
-    let id = response.body.usuarios[6]._id
+    let usuario = ' Usuario EBAC editado ' + Math.floor(Math.random() * 10000000)
+     let email = 'ebac' + Math.floor(Math.random() * 10000000) + '@teste.com'
+      let senha = 'teste123'
+    cy.cadastrarUsuario(token, usuario, email, senha, 'true')
+    .then(response => {
+    let id = response.body._id
     cy.request({
       method:'PUT',
       url: `usuarios/${id}`,
       headers: {authorization: token},
       body:{
-        "nome": "gilsinhho",
-        "email": "gilsonqa@ebac.com",
-        "password": "teste020",
+        "nome": usuario,
+        "email": email,
+        "password": senha,
         "administrador": "true"
       }
-    }).then((response)=> {
+    }).should((response)=> {
       expect(response.body.message).to.equal('Registro alterado com sucesso')
+      expect(response.status).to.equal(200)
     })
    })
   });
 
-  it('Deve deletar um usuário previamente cadastrado', () => {
-    cy.request('usuarios').then(response => {
-     let id = response.body.usuarios[5]._id
+  it.only('Deve deletar um usuário previamente cadastrado', () => {
+    let usuario = ' Usuario EBAC deletado ' + Math.floor(Math.random() * 10000000)
+    let email = 'ebac' + Math.floor(Math.random() * 10000000) + '@teste.com'
+     let senha = 'teste123'
+     cy.cadastrarUsuario(token, usuario, email, senha, 'true')
+   .then(response => {
+    let id = response.body._id  
       cy.request({
         method: 'DELETE',
         url: `usuarios/${id}`,
         headers: {authorization: token},
         body:{
-          "nome": "Gustavo Silva",
-          "email": "beltrano@qa.com.br",
-          "password": "teste",
+          "nome": usuario,
+          "email": email,
+          "password":senha,
           "administrador": "true"
         }
       }).should(resp => {
@@ -97,6 +106,4 @@ describe('Testes da Funcionalidade Usuários', () => {
     })
     })
   });
-
-
 });
