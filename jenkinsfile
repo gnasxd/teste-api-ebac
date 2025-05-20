@@ -23,7 +23,7 @@ pipeline {
                 bat '''
                     set NO_COLOR=1
                     npm test
-                    cy:run
+                   npm cy:run
                 '''
             }
         }
