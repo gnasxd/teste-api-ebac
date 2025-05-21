@@ -14,7 +14,7 @@ pipeline {
         }
       stage('execuntando servidor') { 
   steps( 
-    bat 'start /b npm start' 
+    bat '''start /b npm start''' 
       ) 
   }
         
