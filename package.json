@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx cypress run --browser chrome",
-    "start": "serverest",
+    "start": " npx serverest",
     "cy:run": "npx cypress run"
   },
   "keywords": [],
