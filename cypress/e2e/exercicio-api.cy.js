@@ -45,7 +45,7 @@ describe('Testes da Funcionalidade Usuários', () => {
       url: 'usuarios',
       headers: {authorization: token},
       body:{
-        "nome": "Mariah torres",
+        "nome": usuario,
         "email": "beltrano@qa.com.br",
         "password": "teste",
         "administrador": "true"
